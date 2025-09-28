@@ -5,18 +5,22 @@ import Link from "next/link";
 import { useEffect , useState} from 'react';
 
 export default function Welcome() {
+
     const [loading , setLoading] = useState(true);
+
     useEffect(() => {
         const HendlerLog = () => {
             const timer = setTimeout(() => setLoading(false), 2000)
             return () => clearTimeout(timer)
         }
+
         if( document.readyState === "complete") {
             HendlerLog(); 
                 window.addEventListener("load" , HendlerLog)
          } else {
                 window.addEventListener("load" , HendlerLog)
             }
+
         return () => {
             window.removeEventListener("load" , HendlerLog)
     }; });
