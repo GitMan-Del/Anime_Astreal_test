@@ -43,17 +43,15 @@ export default function RegisterPage() {
     router.push("/login");
   }
     return(
-        <div className="w-full h-[100dvh] flex justify-center items-center p-5">
-            <Link href="/oauth" className="z-30">
-                 <ArrowLeftIcon size={25} className="absolute top-10 left-5"/>
+        <div className="w-full h-[100dvh] flex justify-center flex-col  p-5">
+            <Link href="/" className="z-30">
+                 <ArrowLeftIcon size={25} className=""/>
               </Link>
             <div className="w-full h-full flex-col flex items-center justify-center">
                 <div className="w-full h-fit flex items-center justify-center">
                      <Image src="/logo.svg" alt="lll" width={100} height={100} className="object-contain rounded-2xl mb-10" />
                 </div>
                 <h1 className="text-3xl font-bold text-white text-center mb-5">Create Your Account</h1>
-
-
                 <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4 items-center">
                     <label
                         className=" flex flex-row gap-4 items-center w-full bg-[#15161a] rounded-xl px-5 py-3 active:bg-none">
@@ -63,6 +61,8 @@ export default function RegisterPage() {
                         value={email} 
                         onChange={(e) => setEmail(e.target.value)}  
                         placeholder="Email" 
+                        required
+                        pattern=".{4,}@.{1,}" // cel puțin 4 caractere + @
                         name="email" 
                         className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"/>
                     </label>
@@ -85,8 +85,10 @@ export default function RegisterPage() {
                         <Repeat color="#9e9e9e" size={20}/>
                         <input 
                         type="text" 
-                        placeholder="Repet password" 
-                        name="repet password" 
+                        required
+                        
+                        placeholder="Repet password"
+                        name="repet password"
                         className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"/>
                     </label>
 

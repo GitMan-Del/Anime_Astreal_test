@@ -16,18 +16,22 @@ export async function POST(req: NextRequest , ) {
 
     const lowerEmail = email.toLowerCase()
 
-    // verifică dacă userul există deja
-    const { data: existing } = await supabase
-      .from("users")
+     // 1. Verifică dacă există deja user cu email-ul
+    const { data: existingUser, error: selectError } = await supabase
+      .from("profile_user")
       .select("id")
-      .eq("email", lowerEmail)
-      .maybeSingle()
+      .eq("id", email) // dacă folosești email ca PK
+      .maybeSingle();
 
-    if (existing) {
+    if (selectError) {
+      console.error("Select error:", selectError.message);
+    }
+
+    if (existingUser) {
       return NextResponse.json(
-        { error: "Utilizator deja existent" },
-        { status: 409 }
-      )
+        { error: "User already exists" },
+        { status: 400 }
+      );
     }
 
     // hash pentru parolă
