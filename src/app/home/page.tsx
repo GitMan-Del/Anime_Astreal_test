@@ -11,6 +11,7 @@ export default async function TestPage() {
     redirect("/login")
   }
 
+  
   return (
     <div className="p-6">
       <h1 className="text-xl font-bold">Salut, {session.user?.name}</h1>
