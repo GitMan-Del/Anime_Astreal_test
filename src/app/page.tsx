@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect , useState} from 'react';
 import AuthBtn from "./components/AuthBtn";
 import { ArrowLeftIcon } from "lucide-react";
+import LogScreen from "./components/LogScreen";
 
 export default function Welcome() {
     // loading Screen sistem based on the page loading.
@@ -29,10 +30,7 @@ export default function Welcome() {
         // Page loading screen
       <>
         {loading ? (
-            <div className="w-full h-[100dvh] flex bg-[#181A20] flex-col justify-center items-center">
-                     <Image src="/logo.svg" alt="lll" width={150} height={150} className="object-contain rounded-2xl mb-10 animate-spin" />
-                <p>Loading...</p>
-            </div>
+            <LogScreen/>
         ) :
         // The Welcome page
         <div className={`${oAuth ? "hidden" : ""} w-full h-[100dvh] flex flex-col items-end justify-center `}>
@@ -53,7 +51,6 @@ export default function Welcome() {
             </div>
         </div>
         }
-
         {oAuth &&
         (
         <div className="w-full h-[100dvh] flex justify-center items-center p-5">
@@ -78,7 +75,7 @@ export default function Welcome() {
                         <hr className="border-2 border-[#15161a]/50 w-[50%] rounded-full" />
                             <p>or</p>
                         <hr className="border-2 border-[#15161a]/50 rounded-full w-[50%]" />
-                    </div>   
+                    </div>
                     <Link href="/login" className="w-full mt-5">
                         <button className="w-full rounded-full text-sm bg-[#E50914]   text-white py-4 hover:cursor-pointer">Sign in with password</button>
                     </Link>

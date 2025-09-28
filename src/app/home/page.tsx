@@ -8,10 +8,10 @@ export default async function TestPage() {
   const session = await getServerSession(authOptions)
 
   if (!session) {
-    redirect("/login")
+    redirect("/")
   }
 
-  
+
   return (
     <div className="p-6">
       <h1 className="text-xl font-bold">Salut, {session.user?.name}</h1>

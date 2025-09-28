@@ -29,7 +29,7 @@ export default function Oauth_Page () {
                         <hr className="border-2 border-[#15161a]/50 rounded-full w-[50%]" />
                     </div>
 
-                    <Link href="/login" className="w-full mt-5">
+                    <Link href="/" className="w-full mt-5">
                  <button className="w-full rounded-full text-sm bg-[#E50914]   text-white py-4 hover:cursor-pointer">Sign in with password</button>
                  </Link>
                 <p className="text-sm mt-8">Dont&apos;t have and account?{" "}  

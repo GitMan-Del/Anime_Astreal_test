@@ -40,7 +40,7 @@ export default function RegisterPage() {
     }
 
       // redirect catre login
-    router.push("/login");
+    router.push("/");
   }
     return(
         <div className="w-full h-[100dvh] flex justify-center flex-col  p-5">
@@ -117,7 +117,7 @@ export default function RegisterPage() {
                 </div>
                  <p className="text-sm mt-8">Already have and account?{" "}  
                     <span className="text-[#E50914]">
-                         <Link href="/login">Sign in</Link>
+                         <Link href="/">Sign in</Link>
                     </span>
                 </p>
             </div>

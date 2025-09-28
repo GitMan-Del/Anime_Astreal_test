@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-export default function Login() {
+export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function Login() {
     if (res?.error) {
       console.error("Login failed:", res.error);
     } else {
-      router.push("/home");
+      router.push("/profile");
     }
   };
 
