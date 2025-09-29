@@ -26,6 +26,7 @@ export default function Welcome() {
     }; });
 
     const [oAuth , isOauth] = useState(false);
+   
     return(
         // Page loading screen
       <>
@@ -35,19 +36,19 @@ export default function Welcome() {
         // The Welcome page
         <div className={`${oAuth ? "hidden" : ""} w-full h-[100dvh] flex flex-col items-end justify-center `}>
             <Image src="/BgWelcomePage.png" alt="bg" fill className="w-full h-full object-cover z-10" unoptimized priority/>
-            <div className="w-full h-full bg-gradient-to-t from-1% to-90% from-[#1b1c1e] to-[#1b1c1e]/0 z-20 absolute bottom-0"></div>
+            <div className="w-full h-full bg-gradient-to-t from-1% to-50% from-[#1b1c1e] to-[#1b1c1e]/0 z-20 absolute bottom-0"></div>
             <div className="w-full h-fit p-5 flex flex-col justify-center items-center gap-4 z-30 absolute bottom-0">
                 <h1 className="text-4xl font-bold text-white text-center">Welcome to <br /> Anime Astral 👋</h1>
                 <p className="text-sm text-white text-center w-[85%]">The best streaming anime app of the century to entertain you every day</p>
                 <div className="flex gap-1 w-fit">
-                <div className="w-[34px] rounded h-2 bg-[#E50914]"></div>
-                <div className="w-[10px] rounded-full h-[10px] bg-[#E0E0E0]"></div>
-                <div className="w-[10px] rounded-full h-[10px] bg-[#E0E0E0]"></div>
+                <div className="w-[34px] rounded h-2 bg-[#15161a]"></div>
+                <div className="w-[10px] rounded-full h-[10px] bg-[#32343b]"></div>
+                <div className="w-[10px] rounded-full h-[10px] bg-[#32343b]"></div>
                 </div>
                 <button
                 // Set the oAuth page oAuth
                 onClick={(() => isOauth((prev => !prev)))}
-                className="w-full rounded-full text-sm bg-[#E50914] shadow-md shadow-[#E50914]/50 text-white py-4 hover:cursor-pointer">Get Started</button>
+                className="w-full rounded-full text-sm bg-[#05c149] shadow-md shadow-[#05c149]/50 text-white py-4 hover:cursor-pointer">Get Started</button>
             </div>
         </div>
         }
@@ -77,10 +78,10 @@ export default function Welcome() {
                         <hr className="border-2 border-[#15161a]/50 rounded-full w-[50%]" />
                     </div>
                     <Link href="/login" className="w-full mt-5">
-                        <button className="w-full rounded-full text-sm bg-[#E50914]   text-white py-4 hover:cursor-pointer">Sign in with password</button>
+                        <button className="w-full rounded-full text-sm bg-[#05c149]   text-white py-4 hover:cursor-pointer">Sign in with password</button>
                     </Link>
                  <p className="text-sm mt-8">Dont&apos;t have and account?{" "}  
-                    <span className="text-[#E50914]">
+                    <span className="text-[#05c149]">
                         <Link href="/signup">Sign up</Link>
                     </span>
                 </p>

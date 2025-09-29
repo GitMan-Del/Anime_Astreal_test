@@ -13,35 +13,45 @@ export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
+  const [repeatPassword, setRepeatPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setSuccess(false);
+ async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault()
+  setError(null)
+  setSuccess(false)
 
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  if (password !== repeatPassword) {
+    setError("Parolele nu coincid!")
+    return
+  }
 
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || "Eroare necunoscuta");
-        return;
-      }
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
 
-      setSuccess(true);
-      setEmail("");
-      setPassword("");
-    } catch (err) {
-      setError("Eroare de retea");
+    const data = await res.json()
+
+    if (!res.ok) {
+      setError(data.error || "Eroare necunoscută")
+      return
     }
 
-      // redirect catre login
-    router.push("/");
+    setSuccess(true)
+    setEmail("")
+    setPassword("")
+    setRepeatPassword("")
+
+    // redirect către login
+    router.push("/login")
+  } catch (err) {
+    setError("Eroare de rețea")
   }
+}
+  
     return(
         <div className="w-full h-[100dvh] flex justify-center flex-col  p-5">
             <Link href="/" className="z-30">
@@ -67,35 +77,40 @@ export default function RegisterPage() {
                         className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"/>
                     </label>
 
-                    <label 
-                        className=" flex flex-row gap-4 items-center w-full bg-[#15161a] rounded-xl px-5 py-3 active:bg-none">
-                        <Lock color="#9e9e9e" size={20}/>
-                        <input
-                        type="text"
+                    <label className="flex flex-row gap-4 items-center w-full bg-[#15161a] rounded-xl px-5 py-3">
+                      <Lock color="#9e9e9e" size={20} />
+                      <input
+                        type={showPassword ? "text" : "password"}
                         value={password}
                         placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
-                        name="password" 
-                        className="bg-[#15161a] w-full  focus:ring-0 focus:outline-none"/>
-                        <Eye color="#9e9e9e" size={20}/>
+                        name="password"
+                        required
+                        className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"
+                      />
+                      <button type="button" onClick={() => setShowPassword(!showPassword)}>
+                        <Eye color="#9e9e9e" size={20} />
+                      </button>
                     </label>
 
-                    <label 
-                        className=" flex flex-row gap-4 items-center w-full bg-[#15161a] rounded-xl px-5 py-3 active:bg-none">
-                        <Repeat color="#9e9e9e" size={20}/>
-                        <input 
-                        type="text" 
+                    {/* Repeat password */}
+                    <label className="flex flex-row gap-4 items-center w-full bg-[#15161a] rounded-xl px-5 py-3">
+                      <Repeat color="#9e9e9e" size={20} />
+                      <input
+                        type="password"
+                        value={repeatPassword}
+                        placeholder="Repeat password"
+                        onChange={(e) => setRepeatPassword(e.target.value)}
+                        name="repeatPassword"
                         required
-                        
-                        placeholder="Repet password"
-                        name="repet password"
-                        className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"/>
+                        className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"
+                      />
                     </label>
 
                     <button 
                     disabled={success}
                     type="submit"
-                    className={`${success ? "bg-gray-400 cursor-not-allowed" : ''} ${error? "" : ""} mt-5 w-full rounded-full text-sm bg-[#E50914]  text-white py-4 hover:cursor-pointer`}>
+                    className={`${success ? "bg-gray-400 cursor-not-allowed" : ''} ${error? "" : ""} mt-5 w-full rounded-full text-sm bg-[#05c149]  text-white py-4 hover:cursor-pointer`}>
                         {success ? "Wait a sec" : "Sign-up"}
                     </button>
                 </form>
@@ -115,10 +130,8 @@ export default function RegisterPage() {
                 <button className="bg-[#15161a]  rounded-2xl py-4 flex items-center justify-center gap-2 px-5">
                     <Image src="/Apple-logo.png" width={20} height={20} alt="logo" /></button>
                 </div>
-                 <p className="text-sm mt-8">Already have and account?{" "}  
-                    <span className="text-[#E50914]">
-                         <Link href="/">Sign in</Link>
-                    </span>
+                 <p className="text-sm mt-8">Already have and account?{" "} 
+                    <Link className="text-[#05c149]" href="/login">Sign in</Link>
                 </p>
             </div>
         </div>

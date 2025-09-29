@@ -24,7 +24,7 @@ export default function LoginForm() {
     if (res?.error) {
       console.error("Login failed:", res.error);
     } else {
-      router.push("/profile");
+      router.push("/home");
     }
   };
 
@@ -87,14 +87,14 @@ export default function LoginForm() {
           {/* Submit */}
           <button
             type="submit"
-            className="mt-5 w-full rounded-full text-sm bg-[#E50914] text-white py-4 hover:cursor-pointer"
+            className="mt-5 w-full rounded-full text-sm bg-[#05c149] text-white py-4 hover:cursor-pointer"
           >
             Sign-up
           </button>
         </form>
 
         {/* Forgot password */}
-        <p className="mt-5 text-[#E50914]">Forgot password?</p>
+        <p className="mt-5 text-[#05c149]">Forgot password?</p>
 
         {/* Divider */}
         <div className="w-full h-fit flex flex-row gap-3 items-center justify-center my-5">
@@ -124,7 +124,7 @@ export default function LoginForm() {
         {/* Sign up redirect */}
         <p className="text-sm mt-8">
           Don&apos;t have an account?{" "}
-          <span className="text-[#E50914]">
+          <span className="text-[#05c149]">
             <Link href="/signup">Sign up</Link>
           </span>
         </p>

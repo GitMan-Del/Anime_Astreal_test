@@ -34,7 +34,7 @@ export default function ProfileSet_Up() {
     <>
     <div className="w-full h-[100dvh] p-3 flex flex-col items-center gap-4">
        <Link href="/oauth" className="z-30 flex flex-row gap-5 items-center py-5 ">
-          <ArrowLeftIcon size={25} />
+          <ArrowLeftIcon size={25} /> 
           <h1 className="text-2xl text-white font-medium">Choose your interest</h1>
         </Link>
 
@@ -80,7 +80,7 @@ export default function ProfileSet_Up() {
 
        <div className="w-full flex flex-row gap-3 items-start">
             <button className="px-5 py-3 bg-gray-500 rounded-2xl w-full">Skip</button>
-            <button className="px-5 py-3 bg-[#E50914] rounded-2xl w-full">Continue</button>
+            <button className="px-5 py-3 bg-[#05c149] rounded-2xl w-full">Continue</button>
           </div>
       </div>
     </div>

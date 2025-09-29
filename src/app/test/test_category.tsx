@@ -59,7 +59,7 @@ export default function ProfilePage() {
 
           <div className="w-full flex flex-row gap-3 items-start">
             <button className="px-5 py-3 bg-gray-500 rounded-2xl w-full">Skip</button>
-            <button className="px-5 py-3 bg-[#E50914] rounded-2xl w-full">Continue</button>
+            <button className="px-5 py-3 bg-[#05c149] rounded-2xl w-full">Continue</button>
           </div>
 
       </div>
