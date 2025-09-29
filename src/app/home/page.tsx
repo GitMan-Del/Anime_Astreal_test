@@ -42,18 +42,18 @@ export default async function TestPage() {
          </div>
         <Image src="/placeholder_test.png" alt="a" fill className="w-full h-full object-cover " />
         <div className="bg-gradient-to-t w-full h-full from-0% to-50% from-black/90 to-transparent absolute top-0 right-0 z-20"></div>
-        <div className="flex-col gap-2 inset-0 z-30 p-2">
-        <h1 className="text-white text-2xl font-medium">Demon Slayer: Kimetsu ...</h1>
+        <div className="flex-col gap-2 inset-0 z-30 p-2 mt-3">
+        <h1 className="text-white text-2xl font-bold">Demon Slayer: Kimetsu ...</h1>
         <p className="text-white/90 text-sm">Action , Shounen , Martial Art , Adventure , ...</p>
         <div className="flex flex-row gap-3">
           <button
-            className="mt-5 w-fit px-5 rounded-full text-sm bg-[#05c149] text-white py-2 hover:cursor-pointer flex flex-row gap-3 items-center"
+            className="mt-5 w-fit px-5 rounded-full text-2xs bg-[#05c149] text-white py-2 hover:cursor-pointer flex flex-row gap-3 items-center"
           >
             <PlayCircle size={20} />
             Play
           </button>
           <button
-            className="mt-5 w-fit px-8 rounded-full text-sm bg-transparent border-2 text-white py-2 hover:cursor-pointer flex flex-row gap-3"
+            className="mt-5 w-fit px-8 rounded-full text-2xs bg-transparent border-2 text-white py-2 hover:cursor-pointer flex flex-row gap-3"
           >
             <Plus size={20} />
             My List
@@ -103,17 +103,16 @@ export default async function TestPage() {
             width={200}
             height={250}
             className="rounded-2xl min-w-[200px] h-[250px] object-cover z-10" />   
-            <div className="absolute top-5 left-5 p-2 bg-[#05c149] rounded-sm font-bold z-30 text-xs">{` ${index +  5 + 0.8 }`}
+            <div className="absolute top-5 left-5 p-2 bg-[#05c149] rounded-sm font-bold z-30 text-xs">{` ${index +  6 + 0.5 }`}
             </div>     
              <div className="bg-gradient-to-t w-full h-full from-0% to-50% from-black/90 to-transparent absolute top-0 right-0 z-20 rounded-b-[15px]"></div>             
             </div>
           ))}
         </div>
 
+        <div className="w-full h-[100px] p-3">
+       </div>
       </div>
-
-
-
       {/* <LogOutbtn /> */}
     </div>
   )
