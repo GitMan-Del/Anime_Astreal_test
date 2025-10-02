@@ -6,6 +6,8 @@ import { useEffect , useState} from 'react';
 import AuthBtn from "./components/AuthBtn";
 import { ArrowLeftIcon } from "lucide-react";
 import LogScreen from "./components/LogScreen";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Welcome() {
     // loading Screen sistem based on the page loading.
@@ -24,13 +26,21 @@ export default function Welcome() {
         return () => {
             window.removeEventListener("load" , HendlerLog)
     }; });
-
     const [oAuth , isOauth] = useState(false);
-   
+    const { data: session, status } = useSession()
+       const router = useRouter()
+
+        if(status === "loading") {
+            return null
+        }
+        if (session) {
+          router.push("/home")
+        }
+        
     return(
         // Page loading screen
       <>
-        {loading ? (
+        {loading ? (    
             <LogScreen/>
         ) :
         // The Welcome page
