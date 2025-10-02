@@ -40,7 +40,7 @@ export default function Welcome() {
     return(
         // Page loading screen
       <>
-        {loading ? (    
+        {loading ? (
             <LogScreen/>
         ) :
         // The Welcome page

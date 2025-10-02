@@ -2,12 +2,22 @@
 
  
 
+* {
+  scrollbar-width: none;         /* Firefox */
+}
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 1px;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {

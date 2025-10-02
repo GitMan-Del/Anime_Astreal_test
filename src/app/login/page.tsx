@@ -11,6 +11,7 @@ import { signIn } from "next-auth/react";
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,7 +65,7 @@ export default function LoginForm() {
               type="text"
               placeholder="Email"
               name="email"
-              className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"
+              className="bg-[#15161a] w-full text-white focus:ring-0 focus:outline-none"
             />
           </label>
 
@@ -74,14 +75,16 @@ export default function LoginForm() {
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              type="text"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               name="password"
               required
               minLength={8}
               className="bg-[#15161a] w-full focus:ring-0 focus:outline-none"
             />
+            <button type="button" onClick={() => setShowPassword(!showPassword)}>
             <Eye color="#9e9e9e" size={20} />
+            </button>
           </label>
 
           {/* Submit */}
