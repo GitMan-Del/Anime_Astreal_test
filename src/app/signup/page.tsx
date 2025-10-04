@@ -59,7 +59,7 @@ export default function RegisterPage() {
               </Link>
             <div className="w-full h-full flex-col flex items-center justify-center">
                 <div className="w-full h-fit flex items-center justify-center">
-                     <Image src="/logo.svg" alt="lll" width={100} height={100} className="object-contain rounded-2xl mb-10" />
+                     <Image src="/logo.svg" priority alt="lll" width={100} height={100} className="object-contain rounded-2xl mb-10" />
                 </div>
                 <h1 className="text-3xl font-bold text-white text-center mb-5">Create Your Account</h1>
                 <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4 items-center">

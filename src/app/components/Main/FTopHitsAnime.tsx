@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Anime } from "@/types/anime";
+import { useRouter } from "next/navigation";
 
 type Props = {
   animeData: Anime[];
@@ -7,6 +8,14 @@ type Props = {
 
 
 const TopHitsAnime = ({ animeData }: Props) => {
+  const router = useRouter();
+  
+  const handleClick = (anime: Anime) => {
+     router.push(
+       `home/animeplayer/${anime?.id}?title=${encodeURIComponent(anime?.title)}&img=${encodeURIComponent(anime.webp_large)}`
+     );
+   };
+
   return (
     <div className="flex flex-col gap-3 w-full p-4">
       <div className="flex flex-row justify-between items-center pt-3">
@@ -19,8 +28,9 @@ const TopHitsAnime = ({ animeData }: Props) => {
      <div className="flex gap-3 overflow-x-auto max-w-full rounded-2xl flex-nowrap scroll-smooth ">
       {animeData.slice(0, 10).map((anime, index) => (
         <div
+          onClick={(() => handleClick(anime))}
           key={anime.id}
-          className="flex-shrink-0 w-[12rem] h-[16rem] rounded-2xl relative"
+          className="flex-shrink-0 w-[12rem] h-[16rem] rounded-2xl relative hover:cursor-pointer"
         >
             <div className="absolute bottom-0 left-5 text-4xl font-bold z-30">{` ${index + 1}`}
             </div>

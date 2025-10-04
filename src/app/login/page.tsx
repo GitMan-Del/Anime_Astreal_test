@@ -41,6 +41,7 @@ export default function LoginForm() {
           <Image
             src="/logo.svg"
             alt="logo"
+            priority
             width={100}
             height={100}
             className="object-contain rounded-2xl mb-10"
