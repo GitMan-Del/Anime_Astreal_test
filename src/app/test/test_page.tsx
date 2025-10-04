@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import LogScreen from "../components/LogScreen"
+import LogScreen from "../components/Main/LogScreen"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeftIcon } from "lucide-react"

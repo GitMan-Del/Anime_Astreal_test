@@ -5,9 +5,9 @@ import Image from "next/image"
 import { ArrowLeftIcon, Bell, MoreHorizontal, PlayCircle, Plus, Search } from "lucide-react"
 import NavBar from "../components/NavBar"
 import { useState , useEffect } from "react"
-import { LogOutbtn } from "../components/LogOutbtn"
+import { LogOutbtn } from "../components/Main/LogOutbtn"
 import { useSession } from "next-auth/react"
-import LogScreen from "../components/LogScreen"
+import LogScreen from "../components/Main/LogScreen"
 
 export default function TestPage() {
    const { data: session, status } = useSession()
@@ -94,7 +94,7 @@ export default function TestPage() {
                       <ArrowLeftIcon onClick={(() => setIsOpen(prev => !prev))} size={25} className="hover:cursor-pointer"/>
                       <p className="text-2xl font-bold">Notifications</p>
                     </div>
-                    <button className="w-8 h-8 rounded-full bg-transparent border flex justify-center items-center">
+                   <button className="w-8 h-8 rounded-full bg-transparent border flex justify-center items-center">
                     <Search />
                     </button>
                   </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowLeftIcon, Mail, Lock, Eye } from "lucide-react";
+import { Eye } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import AuthBtn from "../components/AuthBtn";
+import AuthBtn from "../components/Main/AuthBtn";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -32,7 +32,7 @@ export default function LoginForm() {
   return (
     <div className="w-full h-[100dvh] flex justify-center flex-col p-5">
       <Link href="/" className="z-30">
-        <ArrowLeftIcon size={25} />
+               <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="none" stroke="#E0E0E0" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 6s-6 4.419-6 6s6 6 6 6" color="currentColor"/></svg>
       </Link>
 
       <div className="w-full h-full flex flex-col items-center justify-center">
@@ -58,7 +58,7 @@ export default function LoginForm() {
         >
           {/* Email */}
           <label className="flex flex-row gap-4 items-center w-full bg-[#15161a] rounded-xl px-5 py-3">
-            <Mail color="#9e9e9e" size={20} />
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="#9e9e9e"><g fill="none" stroke="#9e9e9e" strokeWidth="1.5"><rect width="18.5" height="17" x="2.682" y="3.5" rx="4"/><path strokeLinecap="round" strokeLinejoin="round" d="m2.729 7.59l7.205 4.13a3.956 3.956 0 0 0 3.975 0l7.225-4.13"/></g></svg>
             <input
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -71,7 +71,7 @@ export default function LoginForm() {
 
           {/* Password */}
           <label className="flex flex-row gap-4 items-center w-full bg-[#15161a] rounded-xl px-5 py-3">
-            <Lock color="#9e9e9e" size={20} />
+           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="#9e9e9e" d="M17 10.25h-.25V8a4.75 4.75 0 0 0-9.5 0v2.25H7A2.75 2.75 0 0 0 4.25 13v5A2.75 2.75 0 0 0 7 20.75h10A2.75 2.75 0 0 0 19.75 18v-5A2.75 2.75 0 0 0 17 10.25ZM8.75 8a3.25 3.25 0 0 1 6.5 0v2.25h-6.5Zm9.5 10A1.25 1.25 0 0 1 17 19.25H7A1.25 1.25 0 0 1 5.75 18v-5A1.25 1.25 0 0 1 7 11.75h10A1.25 1.25 0 0 1 18.25 13Z"/></svg>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}

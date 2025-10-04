@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect , useState} from 'react';
-import AuthBtn from "./components/AuthBtn";
+import AuthBtn from "./components/Main/AuthBtn";
 import { ArrowLeftIcon } from "lucide-react";
-import LogScreen from "./components/LogScreen";
+import LogScreen from "./components/Main/LogScreen";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -27,16 +27,19 @@ export default function Welcome() {
             window.removeEventListener("load" , HendlerLog)
     }; });
     const [oAuth , isOauth] = useState(false);
-    const { data: session, status } = useSession()
-       const router = useRouter()
+    const { data: session, status } = useSession();
+  const router = useRouter();
 
-        if(status === "loading") {
-            return null
-        }
+    useEffect(() => {
+        if (status === "loading") return; // așteaptă până se știe statusul
         if (session) {
-          router.push("/home")
+        router.push("/home");
         }
-        
+    }, [session, status, router]);
+
+    if (status === "loading") {
+        return null; // sau un spinner de loading
+    }
     return(
         // Page loading screen
       <>

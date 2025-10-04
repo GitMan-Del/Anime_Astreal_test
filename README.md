@@ -2,9 +2,7 @@
 ############# TO DOOOOOOOO #################
 ###########################################
 
-1. Supabase Conection 
-2 "Set-up user" front-end
-3. Backend for Set-up user
+mADE
 
 ###########################################
 ############# TO DOOOOOOOO #################
