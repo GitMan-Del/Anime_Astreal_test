@@ -62,7 +62,7 @@ export default function PlayerPage() {
 
        </div>
 
-       <div className="flex flex-row items-center gap-4 py-3 ">
+       <div className="flex flex-row items-center gap-3 py-3 ">
       <div className="flex flex-row items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><defs><linearGradient id="halfFill" x1="0" x2="1" y1="0" y2="0"><stop offset="50%" stopColor="#05C149" /><stop offset="50%" stopColor="rgba(5,193,73,0.25)" /></linearGradient></defs><path fill="url(#halfFill)"d="M12 3L9.65 8.76L3.44 9.22L8.2 13.24L6.71 19.28L12 16L17.29 19.28L15.8 13.24L20.56 9.22L14.35 8.76L12 3Z"/></svg>
        <p className="text-[#05c149] text-2xs">{anime.score}</p>
@@ -71,7 +71,7 @@ export default function PlayerPage() {
        <p className="text-[#E0E0E0]">{anime.year}</p>
        <div className="flex flex-row items-center gap-3">
        <p className="p-2 border border-[#05c149] text-[#05c149] text-xs rounded-md px-3">{(anime.rating?.match(/\d+/)?.[0] || "") + "+"}</p>
-       <p className="p-2 border border-[#05c149] text-[#05c149] text-xs rounded-md px-3">{anime.type}</p>
+       <p className="p-2 border border-[#05c149] text-[#05c149] text-xs rounded-md px-3 whitespace-nowrap">{anime.type}</p>
        <p className="p-2 border border-[#05c149] text-[#05c149] text-xs rounded-md px-3">Subtitle</p>
        </div>
         </div>
