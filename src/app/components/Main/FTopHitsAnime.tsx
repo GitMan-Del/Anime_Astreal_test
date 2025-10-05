@@ -25,12 +25,12 @@ const TopHitsAnime = ({ animeData }: Props) => {
 
     {/* ✅ Wrapper scrollabil pe axa X */}
     
-     <div className="flex gap-3 overflow-x-auto max-w-full rounded-2xl flex-nowrap scroll-smooth ">
+     <div className="flex gap-3 overflow-x-scroll max-w-full rounded-2xl flex-nowrap scroll-smooth ">
       {animeData.slice(0, 10).map((anime, index) => (
         <div
           onClick={(() => handleClick(anime))}
           key={anime.id}
-          className="flex-shrink-0 w-[12rem] h-[16rem] rounded-2xl relative hover:cursor-pointer"
+          className="flex-shrink-0 w-[12rem] h-fit rounded-2xl relative hover:cursor-pointer overflow-hidden"
         >
             <div className="absolute bottom-0 left-5 text-4xl font-bold z-30">{` ${index + 1}`}
             </div>
