@@ -28,21 +28,21 @@ export default function Welcome() {
     }; });
     const [oAuth , isOauth] = useState(false);
     const { data: session, status } = useSession();
-  const router = useRouter();
+    const router = useRouter();
 
-    useEffect(() => {
-        if (status === "loading") return; // așteaptă până se știe statusul
-        if (session) {
-        router.push("/home");
+        useEffect(() => {
+            if (status === "loading") return; // așteaptă până se știe statusul
+            if (session) {
+            router.push("/home");
+            }
+        }, [session, status, router]);
+
+        if (status === "loading") {
+            return null; // sau un spinner de loading
         }
-    }, [session, status, router]);
-
-    if (status === "loading") {
-        return null; // sau un spinner de loading
-    }
-    return(
-        // Page loading screen
-      <>
+        return(
+            // Page loading screen
+        <>
         {loading ? (
             <LogScreen/>
         ) :

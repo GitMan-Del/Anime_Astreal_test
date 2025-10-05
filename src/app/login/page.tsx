@@ -4,18 +4,40 @@ import { Eye } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthBtn from "../components/Main/AuthBtn";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import toast from "react-hot-toast"; 
+import { useSession } from "next-auth/react";
+
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const { data: session, status } = useSession();
+  
+  useEffect(() => {
+      if (status === "loading") return; // așteaptă până se știe statusul
+      if (session) {
+      router.push("/home");
+      }
+  }, [session, status, router]);
+
+  if (status === "loading") {
+      return null; // sau un spinner de loading
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // validare minimă
+    if (!email || !password) {
+      toast.error("Completează toate câmpurile.");
+      return;
+    }
+
     const res = await signIn("credentials", {
       email,
       password,
@@ -23,8 +45,15 @@ export default function LoginForm() {
     });
 
     if (res?.error) {
-      console.error("Login failed:", res.error);
+      if (res.error.includes("CredentialsSignin")) {
+        toast.error("Email sau parolă incorectă.");
+      } else if (res.error.includes("User already exists")) {
+        toast.error("Acest cont există deja. Încearcă să te autentifici.");
+      } else {
+        toast.error("A apărut o eroare neașteptată. Încearcă din nou.");
+      }
     } else {
+      toast.success("Autentificare reușită! Redirectare...");
       router.push("/home");
     }
   };

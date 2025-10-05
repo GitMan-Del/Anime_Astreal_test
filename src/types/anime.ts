@@ -1,8 +1,12 @@
 export type JikanRawAnime = {
   mal_id: number;
   title: string;
+  type: string
+  genres?: { name: string }[];
+  year: number | null;
   score: number | null;
   rating: string | null;
+  synopsis: string | null;
   images: {
     jpg: {
       image_url: string;    
@@ -19,6 +23,10 @@ export type JikanRawAnime = {
 
 export type Anime = {
   id: number;
+  synopsis: string | null;
+  genres?: { name: string }[];
+  type: string
+  year: number | null
   title: string;
   cover: string;
   webp_small: string
@@ -26,5 +34,6 @@ export type Anime = {
   webp_large: string
   cover_small: string
   cover_large: string
-  rating: number;
+  score: number;
+  rating: string | null;
 };

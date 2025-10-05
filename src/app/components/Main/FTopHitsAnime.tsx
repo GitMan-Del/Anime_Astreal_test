@@ -12,7 +12,7 @@ const TopHitsAnime = ({ animeData }: Props) => {
   
   const handleClick = (anime: Anime) => {
      router.push(
-       `home/animeplayer/${anime?.id}?title=${encodeURIComponent(anime?.title)}&img=${encodeURIComponent(anime.webp_large)}`
+       `/home/animeplayer/${anime?.id}?title=${encodeURIComponent(anime?.title)}&img=${encodeURIComponent(anime.webp_large)}`
      );
    };
 
@@ -35,7 +35,7 @@ const TopHitsAnime = ({ animeData }: Props) => {
             <div className="absolute bottom-0 left-5 text-4xl font-bold z-30">{` ${index + 1}`}
             </div>
              <div className="bg-gradient-to-t w-full h-full from-0% to-50% from-black/90 to-transparent absolute top-0 right-0 z-20 rounded-2xl"></div>             
-              <div className="absolute top-2 left-2 p-2 bg-[#05c149] font-bold z-30 text-xs rounded-xl ">{anime.rating}
+              <div className="absolute top-2 left-2 p-2 bg-[#05c149] font-bold z-30 text-xs rounded-xl ">{anime.score}
               </div>
               <div>
            

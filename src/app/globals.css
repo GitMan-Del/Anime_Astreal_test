@@ -41,3 +41,9 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out forwards;
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #15161a inset !important;
+  -webkit-text-fill-color: #E0E0E0 !important;
+  caret-color: #E0E0E0 !important;
+}

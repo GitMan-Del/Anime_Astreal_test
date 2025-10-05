@@ -3,6 +3,11 @@ import { Anime, JikanRawAnime } from "@/types/anime";
 export const transformAnimeData = (raw: JikanRawAnime[]): Anime[] => {
   return raw.map((anime) => ({
     id: anime.mal_id,
+    type: anime.type,
+    synopsis: anime.synopsis,
+    genres: anime.genres ?? [],
+    rating: anime.rating,
+    year: anime.year,
     title: anime.title,
     cover: anime.images.jpg.image_url,
     cover_small: anime.images.jpg.small_image_url,
@@ -10,6 +15,6 @@ export const transformAnimeData = (raw: JikanRawAnime[]): Anime[] => {
     webp_small: anime.images.webp.small_image_url,
     webp_image_url: anime.images.webp.image_url,
     webp_large: anime.images.webp.large_image_url,
-    rating: anime.score ?? 0, // dacă e null, îl faci 0
+    score: anime.score ?? 0, // dacă e null, îl faci 0
   }));
 };

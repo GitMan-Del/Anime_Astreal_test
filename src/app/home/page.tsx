@@ -98,9 +98,7 @@ export default function TestPage( ) {
       
       <FTopHitsAnime animeData={animeData2} />
       <FTopHitsAnime animeData={animeData2} />
-      <FTopHitsAnime animeData={animeData2} />
         
-      
       {/* Secțiune de test */}
       <div className="w-full h-[100px] p-3 z-50"></div>
     </div>

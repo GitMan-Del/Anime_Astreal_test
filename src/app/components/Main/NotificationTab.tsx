@@ -9,7 +9,6 @@ type NotificationProps = {
 function NotificationTab( {isOpen , setIsOpen}:  NotificationProps ) {
     if(!isOpen){
         return null;
-        console.log("Notification Oprite")
     }
     
    const test = [
