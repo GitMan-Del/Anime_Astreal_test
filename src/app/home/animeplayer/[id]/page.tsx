@@ -7,55 +7,31 @@ import { Anime } from "@/types/anime";
 import { Plus } from "lucide-react";
 import { transformAnimeData } from "@/lib/utils/transformAnime";
 import LogScreen from "@/app/components/Main/LogScreen";
-import { supabase } from "@/lib/supabaseClient";
 export default function PlayerPage() {
-  const { id } = useParams(); // ID dinamic din URL (e.g., /anime/[id])
+  const { id } = useParams(); //
+
   const [anime, setAnime] = useState<Anime | null>(null);
-  const [existsInDb, setExistsInDb] = useState<boolean | null>(null); // Pentru a verifica existența
 
   useEffect(() => {
-    if (!id || typeof id !== 'string') return;
+    if (!id) return;
 
-    const fetchAndCheck = async () => {
-      try {
-        // 1. Fetch din Jikan API pentru a obține datele raw și mal_id
-        const response = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
-        const data = await response.json();
-        
-        if (data.data) {
-          // Transformă raw data în tipul tău Anime (include mal_id ca id)
-          const transformedAnime = transformAnimeData([data.data])[0];
-          setAnime(transformedAnime);
-          
-          // 2. Verifică în Supabase dacă mal_id (care e anime.id) există
-          const { data: dbCheck, error } = await supabase
-            .from("anime") // Numele tabelului tău
-            .select("mal_id") // Selectează doar mal_id pentru verificare ușoară
-            .eq("mal_id", transformedAnime.id) // Compară cu id-ul dinamic (mal_id)
-            .single(); // .single() pentru un singur rezultat
-
-          if (error) {
-            console.error("Eroare Supabase:", error);
-            setExistsInDb(false);
-          } else if (dbCheck) {
-            setExistsInDb(true); // Există în DB
-            console.log("Anime găsit în Supabase:", dbCheck.mal_id);
-          } else {
-            setExistsInDb(false); // Nu există
-            console.log("Anime NU există în Supabase");
-          }
-        }
-      } catch (err) {
-        console.error("Eroare fetch Jikan:", err);
-      }
-    };
-
-    fetchAndCheck();
+    // 🔹 Fetch detalii anime bazat pe id
+    fetch(`https://api.jikan.moe/v4/anime/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Aplică transformarea pentru a obține structura Anime cu câmpuri flat (webp_large etc.)
+        const transformedAnime = transformAnimeData([data.data])[0];
+        setAnime(transformedAnime);
+        console.log("Anime transformed:", transformedAnime); // Debug: verifică structura
+        console.log("WebP large URL:", transformedAnime.webp_large); // Specific pentru debug imagine
+      })
+      .catch((err) => console.error("Eroare fetch anime:", err));
   }, [id]);
 
   if (!anime) {
-    return <LogScreen /> // Sau un loading component
+    return <LogScreen />;
   }
+
   return (
     <div className="w-full min-h-screen flex flex-col">
       <div className="w-full h-fit bg-amber-800  realtive">
@@ -95,6 +71,7 @@ export default function PlayerPage() {
             />
           </svg>
         </div>
+
         <Image
           src={anime.webp_large ?? "/placeholder_test.jpg"}
           width={300}
@@ -150,7 +127,7 @@ export default function PlayerPage() {
               viewBox="0 0 24 24"
             >
               <defs>
-                <linearGradient id="halfFill" x1="0" x2="1" y1="0" y2="0">
+               <linearGradient id="halfFill" x1="0" x2="1" y1="0" y2="0">
                   <stop offset="50%" stopColor="#05C149" />
                   <stop offset="50%" stopColor="rgba(5,193,73,0.25)" />
                 </linearGradient>
