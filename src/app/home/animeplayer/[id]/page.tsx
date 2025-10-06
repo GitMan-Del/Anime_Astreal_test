@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -7,31 +8,60 @@ import { Anime } from "@/types/anime";
 import { Plus } from "lucide-react";
 import { transformAnimeData } from "@/lib/utils/transformAnime";
 import LogScreen from "@/app/components/Main/LogScreen";
+import { supabase } from "@/lib/supabaseServer";
+
+type AnimeFromDB = {
+  mal_id: number;
+  title: string;
+  cover: string;
+  url_videos: string[];
+};
+
 export default function PlayerPage() {
-  const { id } = useParams(); //
-
+  
+  const { id } = useParams();
   const [anime, setAnime] = useState<Anime | null>(null);
+  const [data, setData] = useState<AnimeFromDB | null>(null);
 
+  
+  useEffect(() => {
+    async function test() {
+      const {data , error} = await  supabase
+      .from("anime")
+      .select("*")
+      .eq("5114" , id)
+      .single();
+
+      if(error)
+        console.error( "Eroarea:" , error);
+      else setData(data);
+    }
+    if (id) test();
+  }, [id]);
+  
+  
   useEffect(() => {
     if (!id) return;
 
-    // 🔹 Fetch detalii anime bazat pe id
+    
     fetch(`https://api.jikan.moe/v4/anime/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        // Aplică transformarea pentru a obține structura Anime cu câmpuri flat (webp_large etc.)
+    .then((res) => res.json())
+    .then((data) => {
+        
         const transformedAnime = transformAnimeData([data.data])[0];
-        setAnime(transformedAnime);
-        console.log("Anime transformed:", transformedAnime); // Debug: verifică structura
-        console.log("WebP large URL:", transformedAnime.webp_large); // Specific pentru debug imagine
+        setAnime(transformedAnime);  
       })
       .catch((err) => console.error("Eroare fetch anime:", err));
-  }, [id]);
+    }, [id]);
 
   if (!anime) {
     return <LogScreen />;
   }
 
+  if(!id){
+    return null
+  }
+  
   return (
     <div className="w-full min-h-screen flex flex-col">
       <div className="w-full h-fit bg-amber-800  realtive">
@@ -73,7 +103,7 @@ export default function PlayerPage() {
         </div>
 
         <Image
-          src={anime.webp_large ?? "/placeholder_test.jpg"}
+          src={data?.cover ?? "/placeholder_test.jpg"}
           width={300}
           height={200}
           alt={anime.title ?? "No Data"}
