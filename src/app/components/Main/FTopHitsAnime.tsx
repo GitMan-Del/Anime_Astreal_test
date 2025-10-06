@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Anime } from "@/types/anime";
 import { useRouter } from "next/navigation";
@@ -12,7 +14,7 @@ const TopHitsAnime = ({ animeData }: Props) => {
   
   const handleClick = (anime: Anime) => {
      router.push(
-       `/home/animeplayer/${anime?.id}?title=${encodeURIComponent(anime?.title)}&img=${encodeURIComponent(anime.webp_large)}`
+       `/home/animeplayer/${anime?.id}`
      );
    };
 
