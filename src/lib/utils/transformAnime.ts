@@ -6,7 +6,7 @@ export const transformAnimeData = (raw: JikanRawAnime[]): Anime[] => {
     type: anime.type,
     synopsis: anime.synopsis,
     genres: anime.genres ?? [],
-    rating: anime.rating,
+    rating: anime.rating, 
     year: anime.year,
     title: anime.title,
     cover: anime.images.jpg.image_url,

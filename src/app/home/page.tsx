@@ -7,29 +7,13 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import LogScreen from "../components/Main/LogScreen";
 import FTopHitsAnime from "../components/Main/FTopHitsAnime";
-import { transformAnimeData } from "@/lib/utils/transformAnime";
-import { Anime, JikanRawAnime } from "@/types/anime";
 import NavBar from "../components/NavBar";
 import NotificationTab from "../components/Main/NotificationTab";
 
 export default function TestPage() {
-  // API LOGIC
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [animeData2, setAnimeData] = useState<Anime[]>([]);
-  // Notification TAB
   const [isNotifications, setNotifications] = useState(false);
-  
-  useEffect(() => {
-    const fetchAnime = async () => {
-      const res = await fetch("https://api.jikan.moe/v4/top/anime?sfw");
-      const json = await res.json();
-      const raw: JikanRawAnime[] = json.data;
-      setAnimeData(transformAnimeData(raw));
-    };
-
-    fetchAnime();
-  }, []);
 
   // Auth LOGIC
   useEffect(() => {
@@ -42,7 +26,6 @@ export default function TestPage() {
   return (
     <div className="flex flex-col min-h-screen w-full bg-transparent">
       <NavBar />
-
       <NotificationTab isOpen={isNotifications} setIsOpen={setNotifications} />
       {/* Hero Section */}
       <div className="w-full min-h-[20rem] relative flex flex-col justify-end px-4 pb-6">
@@ -134,8 +117,8 @@ export default function TestPage() {
         </div>
       </div>
 
-      <FTopHitsAnime animeData={animeData2} />
-      <FTopHitsAnime animeData={animeData2} />
+      <FTopHitsAnime  />
+      <FTopHitsAnime  />
 
       {/* Secțiune de test */}
       <div className="w-full h-[100px] p-3 z-50"></div>
