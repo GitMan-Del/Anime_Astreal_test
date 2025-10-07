@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 type NotificationProps = {
@@ -6,9 +9,16 @@ type NotificationProps = {
 };
 
 function NotificationTab({ isOpen, setIsOpen }: NotificationProps) {
+  const [isVisible, setIsVisible] = useState(false);
+
   if (!isOpen) {
     return null;
   }
+
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(() => setIsOpen(false), 300); // 300ms = durata fadeOut
+  };
 
   const test = [
     {
@@ -43,10 +53,14 @@ function NotificationTab({ isOpen, setIsOpen }: NotificationProps) {
 
   return (
     <>
-      <div className="animate-fadeIn fixed top-0 right-0 w-full h-screen bg-[#0b0b0d] z-[200] p-5">
+      <div
+        className={`${
+          isVisible ? "animate-fadeOut" : "animate-fadeIn"
+        }  fixed top-0 right-0 w-full h-screen bg-[#0b0b0d] z-[200] p-5`}
+      >
         <div className="flex flex-row gap-4 items-center mb-10">
           <svg
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
             xmlns="http://www.w3.org/2000/svg"
             width="35"
             height="35"

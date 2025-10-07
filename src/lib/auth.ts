@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import { JWT } from "next-auth/jwt"
 import { Session } from "next-auth"
-import { supabase } from "./supabaseServer"
+import { supabaseAdmin } from "./supabaseServer"
 import Credentials from "next-auth/providers/credentials"
 import argon2 from "argon2"
 export const authOptions: NextAuthOptions = {
@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
      },
     async authorize(credentials) {
         if (!credentials?.email || !credentials.password) return null
-        const { data: user, error } = await supabase
+        const { data: user, error } = await supabaseAdmin
           .from("users")
           .select("id, email, name, password_hash")
           .eq("email", credentials.email.toLowerCase())
@@ -56,14 +56,14 @@ export const authOptions: NextAuthOptions = {
         const name = (profile.name as string) ?? email
 
         // verifică dacă userul există
-        const { data: existing } = await supabase
+        const { data: existing } = await supabaseAdmin
           .from("users")
           .select("id")
           .eq("email", email)
           .maybeSingle()
 
         if (!existing) {
-          const { data: inserted } = await supabase
+          const { data: inserted } = await supabaseAdmin
             .from("users")
             .insert({ email, name })
             .select("id")

@@ -19,7 +19,7 @@ export default function TestPage() {
   const [animeData2, setAnimeData] = useState<Anime[]>([]);
   // Notification TAB
   const [isNotifications, setNotifications] = useState(false);
-
+  
   useEffect(() => {
     const fetchAnime = async () => {
       const res = await fetch("https://api.jikan.moe/v4/top/anime?sfw");

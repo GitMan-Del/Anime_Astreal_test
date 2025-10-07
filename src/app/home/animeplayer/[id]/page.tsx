@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -8,59 +7,86 @@ import { Anime } from "@/types/anime";
 import { Plus } from "lucide-react";
 import { transformAnimeData } from "@/lib/utils/transformAnime";
 import LogScreen from "@/app/components/Main/LogScreen";
-import { supabase } from "@/lib/supabaseServer";
+import { supabase } from "@/lib/supabaseClient";
 
 type AnimeFromDB = {
+  id: number;
   mal_id: number;
-  title: string;
-  cover: string;
-  url_videos: string[];
+  title?: string;
+  cover?: string;
+  url_videos?: string[];
+  created_at?: string;
 };
 
 export default function PlayerPage() {
-  
-  const { id } = useParams();
-  const [anime, setAnime] = useState<Anime | null>(null);
-  const [data, setData] = useState<AnimeFromDB | null>(null);
+ const { id } = useParams();
 
-  
-  useEffect(() => {
-    async function test() {
-      const {data , error} = await  supabase
-      .from("anime")
-      .select("*")
-      .eq("5114" , id)
-      .single();
+const [anime, setAnime] = useState<Anime | null>(null);
+const [data, setData] = useState<AnimeFromDB | null>(null);
+const [error, setError] = useState<string | null>(null);
 
-      if(error)
-        console.error( "Eroarea:" , error);
-      else setData(data);
-    }
-    if (id) test();
-  }, [id]);
-  
-  
-  useEffect(() => {
+// Fetch from Supabase
+useEffect(() => {
+  async function fetchFromSupabase() {
     if (!id) return;
 
-    
-    fetch(`https://api.jikan.moe/v4/anime/${id}`)
-    .then((res) => res.json())
-    .then((data) => {
-        
-        const transformedAnime = transformAnimeData([data.data])[0];
-        setAnime(transformedAnime);  
-      })
-      .catch((err) => console.error("Eroare fetch anime:", err));
-    }, [id]);
+    try {
+      const { data, error } = await supabase
+        .from("anime")
+        .select("*")
+        .eq("mal_id", parseInt(id as string))
+        .maybeSingle()
 
-  if (!anime) {
-    return <LogScreen />;
+      if (error) {
+        console.error("Eroare Supabase:", error.message, error.code);
+        setError(error.message);
+        return;
+      }
+
+      setData(data);
+    } catch (err) {
+      console.error("Eroare neașteptată Supabase:", err);
+      setError("Eroare la conectarea cu Supabase");
+    }
   }
 
-  if(!id){
-    return null
+  fetchFromSupabase();
+}, [id]);
+
+
+
+useEffect(() => {
+  if (!id) return;
+
+  async function fetchAnime() {
+    try {
+      const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
+      const json = await res.json();
+
+      if (json.data) {
+        const transformedAnime = transformAnimeData([json.data])[0];
+        setAnime(transformedAnime);
+      } else {
+        console.error("Date API Jikan lipsă:", json);
+      }
+    } catch (err) {
+      console.error("Eroare fetch anime:", err);
+      setError("Eroare la încărcarea datelor anime");
+    }
   }
+
+  fetchAnime();
+}, [id]);
+
+
+if (error) {
+  return <div>Eroare: {error}</div>;
+}
+
+if (!anime || !data) {
+  return <LogScreen />;
+}
+
   
   return (
     <div className="w-full min-h-screen flex flex-col">
@@ -103,7 +129,7 @@ export default function PlayerPage() {
         </div>
 
         <Image
-          src={data?.cover ?? "/placeholder_test.jpg"}
+          src={data?.cover ?? anime.webp_large}
           width={300}
           height={200}
           alt={anime.title ?? "No Data"}

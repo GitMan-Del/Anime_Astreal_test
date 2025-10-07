@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { supabase } from "@/lib/supabaseServer"
+import { supabaseAdmin } from "@/lib/supabaseServer"
 import argon2 from "argon2"
 
 export async function POST(req: NextRequest , ) {
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest , ) {
     const lowerEmail = email.toLowerCase()
 
      // 1. Verifică dacă există deja user cu email-ul
-    const { data: existingUser, error: selectError } = await supabase
+    const { data: existingUser, error: selectError } = await supabaseAdmin
       .from("profile_user")
       .select("id")
       .eq("id", email) // dacă folosești email ca PK
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest , ) {
     const password_hash = await argon2.hash(password)
 
     // inserează user nou
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("users")
       .insert({
         email: lowerEmail,
