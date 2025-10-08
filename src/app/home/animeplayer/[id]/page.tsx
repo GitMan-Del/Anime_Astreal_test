@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Plus } from "lucide-react";
@@ -10,7 +10,7 @@ import { transformAnimeData } from "@/lib/utils/transformAnime";
 import LogScreen from "@/app/components/Main/LogScreen";
 import { supabase } from "@/lib/supabaseClient";
 
-// Tipuri pentru toate 
+// Tipuri pentru entități
 type DBEntities = {
   Anime: {
     id: number;
@@ -58,6 +58,7 @@ export default function PlayerPage() {
   const [episodes, setEpisodes] = useState<DBEntities["Episode"][]>([]);
   const [selectedEpisode, setSelectedEpisode] = useState<number | null>(null);
   const [sources, setSources] = useState<DBEntities["Source"][]>([]);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // 1️⃣ Fetch anime din Supabase după mal_id
   useEffect(() => {
@@ -160,7 +161,8 @@ export default function PlayerPage() {
     fetchEpisodes();
   }, [selectedSeason]);
 
-  // 5️⃣ Fetch surse după episode_id
+
+  // 5️⃣ Fetch surse video din DB
   useEffect(() => {
     if (!selectedEpisode) return;
 
@@ -182,6 +184,24 @@ export default function PlayerPage() {
 
     fetchSources();
   }, [selectedEpisode]);
+
+  // 6️⃣ Handle video playback (auto-play)
+  useEffect(() => {
+    const handleVideo = () => {
+      const video = videoRef.current;
+      if (!video) return;
+
+      video.play().catch((err) => {
+        console.warn("Nu pot reda video-ul automat:", err);
+      });
+    };
+
+    handleVideo();
+
+    return () => {
+      if (videoRef.current) videoRef.current.pause();
+    };
+  }, [sources]);
 
   if (error) return <div>Eroare: {error}</div>;
   if (!anime || !animeDB) return <LogScreen />;
@@ -206,10 +226,25 @@ export default function PlayerPage() {
               d="m16.893 16.92l3.08 3.08m-.889-8.419c0 4.187-3.383 7.581-7.556 7.581c-4.172 0-7.555-3.394-7.555-7.58C3.973 7.393 7.356 4 11.528 4c4.173 0 7.556 3.394 7.556 7.581Z" />
           </svg>
         </div>
-        <Image src={animeDB?.cover ?? anime.webp_large}
-          width={300} height={200}
+
+        <div className="flex flex-col items-center justify-center w-full">
+      {sources.length > 0 ? (
+        <iframe
+          src={sources[0].source_url}
+          allowFullScreen
+          className="w-full h-[20rem] border-0"
+        />
+      ) : (
+        <Image
+          src={animeDB.cover ?? anime.webp_large}
           alt={anime.title ?? "No Data"}
-          className="object-cover w-full h-[17rem]" />
+          width={400}
+          height={250}
+          className="rounded-lg object-cover w-full h-[20rem]"
+        />
+      )}
+    </div>
+
       </div>
       <div className="p-6 flex flex-col">
         <div className="w-full flex flex-row justify-between items-center">
