@@ -117,9 +117,8 @@ export default function TestPage() {
         </div>
       </div>
 
-      <FTopHitsAnime  />
-      <FTopHitsAnime  />
-
+      <FTopHitsAnime />
+      
       {/* Secțiune de test */}
       <div className="w-full h-[100px] p-3 z-50"></div>
     </div>
