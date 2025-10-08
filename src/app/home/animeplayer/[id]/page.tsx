@@ -209,7 +209,7 @@ export default function PlayerPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col">
-      <div className="w-full h-fit bg-amber-800 realtive">
+      <div className="w-full h-fit realtive">
         <div className="absolute top-0 left-0 w-full z-20 flex justify-between items-center p-4">
           <Link href="/home" className="z-30">
             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" >
@@ -232,7 +232,7 @@ export default function PlayerPage() {
         <iframe
           src={sources[0].source_url}
           allowFullScreen
-          className="w-full h-[20rem] border-0"
+          className="w-full h-[13rem] border-0"
         />
       ) : (
         <Image
@@ -240,7 +240,7 @@ export default function PlayerPage() {
           alt={anime.title ?? "No Data"}
           width={400}
           height={250}
-          className="rounded-lg object-cover w-full h-[20rem]"
+          className="rounded-lg object-cover w-full h-[13rem]"
         />
       )}
     </div>
