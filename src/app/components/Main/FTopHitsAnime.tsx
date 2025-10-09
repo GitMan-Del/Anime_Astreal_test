@@ -59,6 +59,10 @@ const TopHitsAnime = () => {
     return <LogScreen />
   }
 
+  if (!animeData) {
+    return <LogScreen />
+  }
+
 
   return (
     <div className="flex flex-col gap-3 w-full p-4">
