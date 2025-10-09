@@ -127,7 +127,7 @@ export default function AddAnimeData() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="w-full max-w-md">
         <div className="p-6 flex flex-col gap-4">
           <h2 className="text-xl font-bold text-center">Step {step} of 4</h2>
