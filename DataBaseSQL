@@ -1,0 +1,84 @@
+All tabels : (copy and paste all of them at once in the SQL editor in supabase)
+
+create table public.anime (
+  id serial not null,
+  mal_id integer not null,
+  cover text null,
+  created_at timestamp with time zone null default now(),
+  constraint anime_pkey primary key (id),
+  constraint anime_mal_id_key unique (mal_id),
+  constraint unique_mal_id unique (mal_id)
+) TABLESPACE pg_default;
+
+create index IF not exists idx_anime_mal_id on public.anime using btree (mal_id) TABLESPACE pg_default;
+
+create table public.episode_sources (
+  id serial not null,
+  episode_id integer null,
+  source_url text not null,
+  type text null,
+  priority integer null default 1,
+  created_at timestamp with time zone null default now(),
+  constraint episode_sources_pkey primary key (id),
+  constraint episode_sources_episode_id_fkey foreign KEY (episode_id) references episodes (id) on delete CASCADE
+) TABLESPACE pg_default;
+
+create index IF not exists idx_sources_episode_id on public.episode_sources using btree (episode_id) TABLESPACE pg_default;
+
+
+create table public.episodes (
+  id serial not null,
+  anime_id integer null,
+  season_id integer null,
+  episode_number integer not null,
+  title text null,
+  thumbnail text null,
+  created_at timestamp with time zone null default now(),
+  constraint episodes_pkey primary key (id),
+  constraint episodes_anime_id_fkey foreign KEY (anime_id) references anime (id) on delete CASCADE,
+  constraint episodes_season_id_fkey foreign KEY (season_id) references seasons (id) on delete set null
+) TABLESPACE pg_default;
+
+create index IF not exists idx_episodes_anime_id on public.episodes using btree (anime_id) TABLESPACE pg_default;
+
+create index IF not exists idx_episodes_season_id on public.episodes using btree (season_id) TABLESPACE pg_default;
+
+create table public.profile_user (
+  id uuid not null,
+  full_name text not null,
+  nickname text null,
+  gender text not null,
+  created_at timestamp with time zone null default now(),
+  constraint profile_user_pkey primary key (id),
+  constraint profile_user_id_fkey foreign KEY (id) references auth.users (id) on delete CASCADE,
+  constraint profile_user_gender_check check (
+    (
+      gender = any (array['male'::text, 'female'::text])
+    )
+  )
+) TABLESPACE pg_default;
+
+create table public.seasons (
+  id serial not null,
+  anime_id integer null,
+  season_number integer not null,
+  title text null,
+  created_at timestamp with time zone null default now(),
+  constraint seasons_pkey primary key (id),
+  constraint seasons_anime_id_fkey foreign KEY (anime_id) references anime (id) on delete CASCADE
+) TABLESPACE pg_default;
+
+create index IF not exists idx_seasons_anime_id on public.seasons using btree (anime_id) TABLESPACE pg_default;
+
+create table public.users (
+  id uuid not null default gen_random_uuid (),
+  email text not null,
+  name text null,
+  image text null,
+  created_at timestamp with time zone null default now(),
+  password_hash text null,
+  constraint users_pkey primary key (id),
+  constraint users_email_key unique (email)
+) TABLESPACE pg_default;
+
+create index IF not exists users_email_idx on public.users using btree (lower(email)) TABLESPACE pg_default;
